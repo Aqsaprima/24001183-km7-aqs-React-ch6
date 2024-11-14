@@ -3,7 +3,7 @@
 import "./pagination.css";
 import { Pagination } from "flowbite-react";
 
-export function Pages({ currentPage, onPageChange }) {
+function Pages({ currentPage, onPageChange }) {
   return (
     <div className="flex overflow-x-auto sm:justify-center">
       <div className="pagination-wrapper">
@@ -16,3 +16,5 @@ export function Pages({ currentPage, onPageChange }) {
     </div>
   );
 }
+
+export default Pages;
