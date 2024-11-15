@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Pages from "../components/elements/pagination/pagination";
 import "../App.css";
+import axiosInstance from "../api/axiosInstance";
 
 function HomeView() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,15 +14,16 @@ function HomeView() {
   const fetchShops = async (page) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/shops?page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // const token = localStorage.getItem("token");
+      // const response = await axios.get(
+      //   `http://localhost:3000/api/v1/shops?page=${page}`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
+      const response = await axiosInstance.get(`/shops?page=${page}`);
 
       const data = response.data;
       if (data.isSuccess) {

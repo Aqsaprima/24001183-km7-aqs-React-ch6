@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import NavbarTailwind from "./components/navbar/NavbarTailwind";
 import NotFoundView from "./pages/NotFound";
 import isTokenExpired from "../utils/Auth";
+import { useAuth } from "./context/AuthContext";
 
 // email login
 // Elenora65@yahoo.com
@@ -19,29 +20,11 @@ import isTokenExpired from "../utils/Auth";
 // ]);
 
 function App() {
-  const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // check user logged in or not
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token || isTokenExpired(token)) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      navigate("/login");
-    }
-    setIsAuthenticated(!!token);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    setIsAuthenticated(false);
-  };
+  const { isAuthenticated, logout } = useAuth();
 
   return (
     <>
-      {isAuthenticated && <NavbarTailwind onLogout={handleLogout} />}
+      {isAuthenticated && <NavbarTailwind onLogout={logout} />}
       <Routes>
         <Route
           path="/"
